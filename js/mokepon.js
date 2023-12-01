@@ -1,5 +1,7 @@
 let ataqueJugador /*Variable global*/
 let ataqueOponente
+let vidaJugador = 3
+let vidaOponente = 3
 
 function iniciarJuego(){
     let botonMascotaJugador = document.getElementById('boton-mascota')
@@ -11,6 +13,9 @@ function iniciarJuego(){
     botonAgua.addEventListener('click', ataqueAgua)
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click', ataqueTierra)
+
+    let botonReinciar = document.getElementById('boton-Reiniciar')
+    botonReinciar.addEventListener('click', reiniciarJuego)
 }
 
 /*Esta función permite seleccionar la mascota del jugador */ 
@@ -80,20 +85,43 @@ function ataqueAleatorioOponente(){
 }
 
 function combate(){
-    if(ataqueJugador == ataqueOponente){
+    let spanVidaJugador = document.getElementById('vida-Jugador')
+    let spanVidaOponente = document.getElementById('vida-Oponente')
+
+
+    if(ataqueOponente == ataqueJugador){
         crearMensaje("EMPATE😐🤨")
     }
     else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){
         crearMensaje("GANASTE🎉😀")
+        vidaOponente--
+        spanVidaOponente.innerHTML = vidaOponente
     }
     else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO'){
         crearMensaje("GANASTE🎉😀")
+        vidaOponente--
+        spanVidaOponente.innerHTML = vidaOponente
     }
     else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA'){
         crearMensaje("GANASTE🎉😀")
+        vidaOponente--
+        spanVidaOponente.innerHTML = vidaOponente
     }
     else{
         crearMensaje("PERDISTE😥😭")
+    vidaJugador--
+    spanVidaJugador.innerHTML = vidaJugador
+    }
+
+    revisarVida()
+}
+
+function revisarVida(){
+    if(vidaOponente == 0){
+        crearMensajeFinal("Felicitaciones Ganaste")
+    }
+    else if(vidaJugador == 0){
+        crearMensajeFinal("Lo siento te han derrotado")
     }
 }
 
@@ -104,6 +132,28 @@ function crearMensaje(resultado){
     parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota de tu oponente atacó con " + ataqueOponente + " - " + resultado
 
     sectionMensaje.appendChild(parrafo) /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
+}
+
+function crearMensajeFinal(resultadoFinal){
+    let sectionMensaje = document.getElementById('mensajes')
+
+    let parrafo = document.createElement('p') /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
+    parrafo.innerHTML = resultadoFinal
+
+   sectionMensaje.appendChild(parrafo) /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
+
+   let botonFuego = document.getElementById('boton-fuego')
+    botonFuego.disabled = true
+    let botonAgua = document.getElementById('boton-agua')
+    botonAgua.disabled = true
+    let botonTierra = document.getElementById('boton-tierra')
+    botonTierra.disabled = true
+
+
+}
+
+function reiniciarJuego(){
+   botonReinciar = location.reload()
 }
 
 function aleatorio(min, max){
