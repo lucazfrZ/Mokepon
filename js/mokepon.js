@@ -81,19 +81,19 @@ function ataqueAleatorioOponente(){
 
 function combate(){
     if(ataqueJugador == ataqueOponente){
-        crearMensaje("EMPATE")
+        crearMensaje("EMPATE😐🤨")
     }
     else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){
-        crearMensaje("GANASTE")
+        crearMensaje("GANASTE🎉😀")
     }
     else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO'){
-        crearMensaje("GANASTE")
+        crearMensaje("GANASTE🎉😀")
     }
     else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA'){
-        crearMensaje("GANASTE")
+        crearMensaje("GANASTE🎉😀")
     }
     else{
-        crearMensaje("PERDISTE")
+        crearMensaje("PERDISTE😥😭")
     }
 }
 
