@@ -4,6 +4,13 @@ let vidaJugador = 3
 let vidaOponente = 3
 
 function iniciarJuego(){
+    
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'none'
+
+    let sectionReiniciar = document.getElementById('boton-Reiniciar')
+    sectionReiniciar.style.display='none'
+
     let botonMascotaJugador = document.getElementById('boton-mascota')
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
@@ -14,12 +21,19 @@ function iniciarJuego(){
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click', ataqueTierra)
 
-    let botonReinciar = document.getElementById('boton-Reiniciar')
-    botonReinciar.addEventListener('click', reiniciarJuego)
+    let botonReiniciar = document.getElementById('boton-Reiniciar')
+    botonReiniciar.addEventListener('click', reiniciarJuego)
+    
 }
 
 /*Esta función permite seleccionar la mascota del jugador */ 
 function seleccionarMascotaJugador(){
+    let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
+    sectionSeleccionarMascota.style.display = 'none'
+
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'block'
+
     let inputHipodege = document.getElementById('hipodoge')
     let inputCapipepo = document.getElementById('capipepo')
     let inputRatigueya = document.getElementById('ratigueya')
@@ -85,6 +99,8 @@ function ataqueAleatorioOponente(){
 }
 
 function combate(){
+    
+
     let spanVidaJugador = document.getElementById('vida-Jugador')
     let spanVidaOponente = document.getElementById('vida-Oponente')
 
@@ -149,6 +165,11 @@ function crearMensajeFinal(resultadoFinal){
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.disabled = true
 
+    let botonReiniciar = document.getElementById('boton-Reiniciar')
+    botonReiniciar.addEventListener('click', reiniciarJuego)
+    
+    let sectionReiniciar = document.getElementById('boton-Reiniciar')
+    sectionReiniciar.style.display='block'
 
 }
 
