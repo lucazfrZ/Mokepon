@@ -39,6 +39,20 @@ let vidaJugador = 3
 let vidaOponente = 3
 /*Fin Variables Globales*/
 
+/*Inicio clase*/
+class Mokepon {
+    constructor(nombre, foto, vida){
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+    }
+}
+
+let hipodoge = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 3)
+let capipepo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 3)
+let retigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 3 )
+/*Fin Clase*/
+
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciar.style.display='none'
