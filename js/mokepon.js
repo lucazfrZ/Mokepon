@@ -32,9 +32,13 @@ const ataqueDelJugador = document.getElementById('ataques-del-jugador')
 const ataqueDelOponente = document.getElementById('ataques-del-oponente')
 /*Fin Variables de Funcion "crearMensaje"*/
 
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
+
 /*Inicio Variables Globales*/
+let mokepones = []
 let ataqueJugador 
 let ataqueOponente
+let opcionMokepones
 let vidaJugador = 3
 let vidaOponente = 3
 /*Fin Variables Globales*/
@@ -45,17 +49,57 @@ class Mokepon {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
+        this.ataques = []
     }
 }
+/*Fin Clase*/
 
 let hipodoge = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 3)
 let capipepo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 3)
-let retigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 3 )
-/*Fin Clase*/
+let ratigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 3 )
+
+
+/*Obejetos*/
+hipodoge.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🌱', id: 'boton-tierra'}
+)
+
+capipepo.ataques.push(
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'}
+)
+
+ratigueya.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🌱', id: 'boton-tierra'}
+)
+/*Fin Objetos*/
+
+mokepones.push(hipodoge, capipepo, ratigueya)
+
 
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = 'none'
-    sectionReiniciar.style.display='none'
+    
+    mokepones.forEach((mokepon) => {
+        opcionMokepones = `<input type="radio" name="mascota" id=${mokepon.nombre} />
+        <label class="tarjeta-de-mokepon" for=${mokepon.nombre}>
+            <p>${mokepon.nombre}</p>
+            <img src=${mokepon.foto} alt=${mokepon.nombre}>
+        </label>`
+
+        contenedorTarjetas.innerHTML += opcionMokepones
+    })
 
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
     botonFuego.addEventListener('click', ataqueFuego)
