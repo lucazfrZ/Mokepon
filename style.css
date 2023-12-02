@@ -100,4 +100,30 @@ input {
 .ataques{
   display: grid;
   grid-template-columns: 100px 100px;
+  color: white;
+}
+
+#vida-Jugador, #vida-Oponente{
+  font-size: 32px;
+  margin-bottom: 0;
+}
+
+.ataque-Jugador, .ataque-Oponente{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (max-width: 572px ){
+  .tarjetas{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botones-ataques{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+
 }
