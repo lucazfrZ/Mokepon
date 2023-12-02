@@ -50,6 +50,7 @@ function seleccionarMascotaJugador(){
     }
     else{
         alert("Hola querido usuario, selecciona una mascota")
+        reiniciarJuego()
     }
 
     seleccionarMascotaOponente()
