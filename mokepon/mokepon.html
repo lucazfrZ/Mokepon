@@ -40,24 +40,26 @@
     </section>
 
     <section id="seleccionar-ataque">
-        <h2>Elige tu ataque:</h2>
+        <h1 class="titulo">MOKEPON!</h1>
+        <h2 class="subtitulo">Elige tu ataque:</h2>
 
         <div>
-            <button id="boton-fuego">Fuego🔥</button>
-            <button id="boton-agua">Agua💧</button>
-            <button id="boton-tierra">Tierra🌱</button>
+            <button id="boton-fuego" class="boton-de-ataque">Fuego🔥</button>
+            <button id="boton-agua" class="boton-de-ataque">Agua💧</button>
+            <button id="boton-tierra" class="boton-de-ataque">Tierra🌱</button>
         </div>
 
-        <div>
-            <section id="mensajes">
-            </section>
-         
+        <div id="mensajes">
+            <p id="resultado">Mucha Suerte!</p>
+    
             <section id="reiniciar">
-             <button id="boton-Reiniciar">Reiniciar</button>
+                <button id="boton-Reiniciar">Reiniciar</button>
             </section>
         </div>
 
         <div>
+            <div id="ataques-del-jugador"></div>
+            <div id="ataques-del-oponente"></div>
             <p>Tu mascota <span id="mascota-Jugador"></span> tiene <span id = "vida-Jugador">3</span> vidas</p>
             <p>La mascota <span id="mascota-Oponente"></span> de tu oponente tiene <span id = "vida-Oponente">3</span> vidas</p> 
         </div>

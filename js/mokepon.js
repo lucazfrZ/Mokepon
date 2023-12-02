@@ -32,7 +32,7 @@ function seleccionarMascotaJugador(){
     sectionSeleccionarMascota.style.display = 'none'
 
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'block'
+    sectionSeleccionarAtaque.style.display = 'flex'
 
     let inputHipodege = document.getElementById('hipodoge')
     let inputCapipepo = document.getElementById('capipepo')
@@ -135,29 +135,42 @@ function combate(){
 
 function revisarVida(){
     if(vidaOponente == 0){
-        crearMensajeFinal("Felicitaciones Ganaste")
+        crearMensajeFinal("Felicitaciones Ganaste!")
     }
     else if(vidaJugador == 0){
-        crearMensajeFinal("Lo siento te han derrotado")
+        crearMensajeFinal("Lo siento te han derrotado :(")
     }
 }
 
 function crearMensaje(resultado){
-    let sectionMensaje = document.getElementById('mensajes')
+    let sectionMensaje = document.getElementById('resultado')
+    let ataqueDelJugador = document.getElementById('ataques-del-jugador')
+    let ataqueDelOponente = document.getElementById('ataques-del-oponente')
+    /*Podre declarar variables pero nunca podre declarar mi amor a ella */
 
-    let parrafo = document.createElement('p') /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
-    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota de tu oponente atacó con " + ataqueOponente + " - " + resultado
+    let nuevoAtaqueDelJugador = document.createElement('p')
+    let nuevoAtaqueDelOponente = document.createElement('p')
 
-    sectionMensaje.appendChild(parrafo) /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
+    sectionMensaje.innerHTML = resultado
+    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
+    nuevoAtaqueDelOponente.innerHTML = ataqueOponente
+
+    // let parrafo = document.createElement('p') /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
+    // parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota de tu oponente atacó con " + ataqueOponente + " - " + resultado
+
+   /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
+   
+    ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
+    ataqueDelOponente.appendChild(nuevoAtaqueDelOponente)
 }
 
 function crearMensajeFinal(resultadoFinal){
-    let sectionMensaje = document.getElementById('mensajes')
+    let sectionMensaje = document.getElementById('resultado')
 
-    let parrafo = document.createElement('p') /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
-    parrafo.innerHTML = resultadoFinal
+     /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
+    sectionMensaje.innerHTML = resultadoFinal
 
-   sectionMensaje.appendChild(parrafo) /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
+    /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
 
    let botonFuego = document.getElementById('boton-fuego')
     botonFuego.disabled = true
