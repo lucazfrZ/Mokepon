@@ -18,7 +18,7 @@ const spanMascotaJugador = document.getElementById('mascota-Jugador')
 /*Fin Variables de Función "seleccionarMascotaJugador"*/
 
 /*Inicio Variables de Función "seleccionarMascotaOponente"*/
-const spanMascotaOponente = document.getElementById('mascota-Oponente')
+const spanMascotaOponente = document.getElementById('mascota-Oponente');
 /*Fin Variables de Función "seleccionarMascotaOponente"*/
 
 /*Inicio Variables de Función "combate"*/

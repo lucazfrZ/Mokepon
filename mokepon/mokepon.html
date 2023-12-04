@@ -14,7 +14,20 @@
                 <h2 class="subtitulo">Elige tu mascota:</h2>
 
                 <div id="contenedor-tarjetas" class="tarjetas">
-                    
+                    <!--Aqui se imprimen las tarjetas gracias a la siguiente sentencia hecha en JS-->
+                    <!--
+
+        mokepones.forEach((mokepon) => {
+            opcionMokepones = `<input type="radio" name="mascota" id=${mokepon.nombre} />
+            <label class="tarjeta-de-mokepon" for=${mokepon.nombre}>
+                <p>${mokepon.nombre}</p>
+                <img src=${mokepon.foto} alt=${mokepon.nombre}>
+            </label>`
+
+        contenedorTarjetas.innerHTML += opcionMokepones
+        )}
+
+                    -->
                 </div>
 
                 <button id="boton-mascota">Seleccionar</button>
