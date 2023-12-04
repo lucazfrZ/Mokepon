@@ -11,9 +11,6 @@ const botonReiniciar = document.getElementById('boton-Reiniciar')
 /*Inicio Variables de Función "seleccionarMascotaJugador"*/
 const sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
 // let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-const inputHipodege = document.getElementById('hipodoge')
-const inputCapipepo = document.getElementById('capipepo')
-const inputRatigueya = document.getElementById('ratigueya')
 const spanMascotaJugador = document.getElementById('mascota-Jugador')
 /*Fin Variables de Función "seleccionarMascotaJugador"*/
 
@@ -39,6 +36,9 @@ let mokepones = []
 let ataqueJugador 
 let ataqueOponente
 let opcionMokepones
+let inputHipodege
+let inputCapipepo
+let inputRatigueya 
 let vidaJugador = 3
 let vidaOponente = 3
 /*Fin Variables Globales*/
@@ -99,6 +99,10 @@ function iniciarJuego(){
         </label>`
 
         contenedorTarjetas.innerHTML += opcionMokepones
+
+            inputHipodege = document.getElementById('Hipodoge')
+            inputCapipepo = document.getElementById('Capipepo')
+            inputRatigueya = document.getElementById('Ratigueya')
     })
 
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
