@@ -63,7 +63,7 @@ mapaBackground.src = '../assets/mokemap.png'
 
 /*Inicio clase*/
 class Mokepon {
-    constructor(nombre, foto, vida){
+    constructor(nombre, foto, vida,fotoMapa, x = 10, y = 10 ){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -73,7 +73,7 @@ class Mokepon {
         this.ancho = 40
         this.alto = 40
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
 
@@ -81,9 +81,9 @@ class Mokepon {
 }
 /*Fin Clase*/
 
-let hipodoge = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 3)
-let capipepo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 3)
-let ratigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 3 )
+let hipodoge = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 5, '../assets/hipodoge.png')
+let capipepo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 5, '../assets/capipepo.png')
+let ratigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 5, '../assets/ratigueya.png' )
 
 
 /*Obejetos*/
