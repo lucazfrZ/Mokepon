@@ -68,15 +68,24 @@ class Mokepon {
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = 20
-        this.y = 30
+        this.x = x
+        this.y = y
         this.ancho = 40
         this.alto = 40
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
+    }
 
+    pintarMokepon() {
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+     )
     }
 }
 /*Fin Clase*/
@@ -84,6 +93,10 @@ class Mokepon {
 let hipodoge = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 5, '../assets/hipodoge.png')
 let capipepo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 5, '../assets/capipepo.png')
 let ratigueya = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 5, '../assets/ratigueya.png' )
+
+let hipodogeEnemigo = new Mokepon('Hipodoge', '../assets/mokepons_mokepon_hipodoge_attack.webp', 5, '../assets/hipodoge.png', 80, 120)
+let capipepoEnemigo = new Mokepon('Capipepo', '../assets/mokepons_mokepon_capipepo_attack.webp', 5, '../assets/capipepo.png', 150, 95)
+let ratigueyaEnemigo = new Mokepon('Ratigueya', '../assets/mokepons_mokepon_ratigueya_attack.webp', 5, '../assets/ratigueya.png', 200, 190 )
 
 
 /*Obejetos*/
@@ -361,12 +374,11 @@ function pintarCanvas(){
             mapa.height
         
     )
-    lienzo.drawImage(mascotaJugadorObjeto.mapaFoto
-        ,mascotaJugadorObjeto.x
-        ,mascotaJugadorObjeto.y
-        ,mascotaJugadorObjeto.ancho
-        ,mascotaJugadorObjeto.alto
- )}
+   mascotaJugadorObjeto.pintarMokepon()
+   hipodogeEnemigo.pintarMokepon()
+   capipepoEnemigo.pintarMokepon()
+   ratigueyaEnemigo.pintarMokepon()
+}
 
 function moverDerecha(){
     capipepo.velocidadX = 5
