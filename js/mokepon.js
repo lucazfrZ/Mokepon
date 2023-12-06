@@ -30,6 +30,10 @@ const ataqueDelOponente = document.getElementById('ataques-del-oponente')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorAtaques = document.getElementById('contenedorAtaques')
 
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
+
+
 /*Inicio Variables Globales*/
 let mokepones = []
 let ataqueJugador = []
@@ -39,6 +43,7 @@ let inputHipodoge
 let inputCapipepo
 let inputRatigueya
 let mascotaJugador 
+let mascotaJugadorObjeto
 let ataquesMokepon
 let ataquesMokeponOponente
 let botonFuego
@@ -49,6 +54,11 @@ let indexAtaqueJugador
 let indexAtaqueOponente
 let victoriasJugador = 0
 let victoriasOponente = 0
+let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = '../assets/mokemap.png'
+
 /*Fin Variables Globales*/
 
 /*Inicio clase*/
@@ -58,6 +68,15 @@ class Mokepon {
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 40
+        this.alto = 40
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
+
     }
 }
 /*Fin Clase*/
@@ -98,6 +117,7 @@ mokepones.push(hipodoge, capipepo, ratigueya)
 
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = 'none'
+    sectionVerMapa.style.display='none'
     
     mokepones.forEach((mokepon) => {
         opcionMokepones = `<input type="radio" name="mascota" id=${mokepon.nombre} />
@@ -123,8 +143,10 @@ function iniciarJuego(){
 /*Esta función permite seleccionar la mascota del jugador */ 
 function seleccionarMascotaJugador(){
     sectionSeleccionarMascota.style.display = 'none'    
-    sectionSeleccionarAtaque.style.display = 'flex'
+    // sectionSeleccionarAtaque.style.display = 'flex'
+   
 
+   
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id/*innerHTML es una propiedad que permite manipular el DOM */
         mascotaJugador = inputHipodoge.id
@@ -138,10 +160,12 @@ function seleccionarMascotaJugador(){
         mascotaJugador = inputRatigueya.id
     }
     else{
-        alert("Hola querido usuario, selecciona una mascota")
+        alert("ELIGE UN PERSONAJE")
         location.reload()
     }
     extraerAtaques(mascotaJugador)
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
     seleccionarMascotaOponente()
 }
 
@@ -175,8 +199,6 @@ function mostrarAtaques(ataques){
      botonAgua = document.getElementById('boton-agua')
      botonTierra = document.getElementById('boton-tierra')
      botones = document.querySelectorAll('.BAtaque')
-
-     console.log(botones)
     
 }
 
@@ -303,14 +325,10 @@ function crearMensaje(resultado){
 
 function crearMensajeFinal(resultadoFinal){
     
-
      /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
     sectionMensaje.innerHTML = resultadoFinal
 
     /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
-
-   
-
     let botonReiniciar = document.getElementById('boton-Reiniciar')
     botonReiniciar.addEventListener('click', reiniciarJuego)
     
@@ -321,12 +339,110 @@ function crearMensajeFinal(resultadoFinal){
 
 }
 
+
 function reiniciarJuego(){
    botonReinciar = location.reload()
 }
 
 function aleatorio(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
+}
+
+function pintarCanvas(){
+    
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
+    lienzo.clearRect(0,0,mapa.width,mapa.height)
+    lienzo.drawImage(
+        mapaBackground,
+            0,
+            0,
+            mapa.width,
+            mapa.height
+        
+    )
+    lienzo.drawImage(mascotaJugadorObjeto.mapaFoto
+        ,mascotaJugadorObjeto.x
+        ,mascotaJugadorObjeto.y
+        ,mascotaJugadorObjeto.ancho
+        ,mascotaJugadorObjeto.alto
+ )}
+
+function moverDerecha(){
+    capipepo.velocidadX = 5
+}
+
+function moverIzquierda(){
+    capipepo.velocidadX = -5
+}
+
+function moverAbajo(){
+    capipepo.velocidadY = 5
+}
+
+function moverArriba(){
+   capipepo.velocidadY = -5
+}
+
+function moverDerecha() {
+    mascotaJugadorObjeto.velocidadX = 5
+}
+
+function moverIzquierda() {
+    mascotaJugadorObjeto.velocidadX = -5
+}
+
+function moverAbajo() {
+    mascotaJugadorObjeto.velocidadY = 5
+}
+
+function moverArriba() {
+    mascotaJugadorObjeto.velocidadY = -5
+}
+
+function detenerMovimiento() {
+   
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+            moverArriba()
+            break
+        case 'ArrowDown':
+            moverAbajo()
+            break
+        case 'ArrowLeft':
+            moverIzquierda()
+            break
+        case 'ArrowRight':
+            moverDerecha()
+            break
+        default:
+            break
+    }
+}
+
+function iniciarMapa() {
+    mapa.width = 320
+    mapa.height = 240
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    console.log(mascotaJugadorObjeto, mascotaJugador);
+    intervalo = setInterval(pintarCanvas, 50)
+    
+    window.addEventListener('keydown', sePresionoUnaTecla)
+
+    window.addEventListener('keyup', detenerMovimiento)
+}
+
+function obtenerObjetoMascota(){
+    for(let i = 0; i<mokepones.length; i++){
+        if(mascotaJugador === mokepones[i].nombre){
+            return mokepones[i]
+        }
+    }
 }
 
 window.addEventListener('load', iniciarJuego)
