@@ -187,16 +187,22 @@ function secuenciaAtaque(){
             ataqueJugador.push('FUEGO')
             console.log(ataqueJugador)
             boton.style.background = '#112f58'
+            boton.style.cursor = 'no-drop'
+            boton.disabled = true
            }
            else if(e.target.textContent === '💧'){
             ataqueJugador.push('AGUA')
             console.log(ataqueJugador)
             boton.style.background = '#112f58'
+            boton.style.cursor = 'no-drop'
+            boton.disabled = true
            }
            else{
             ataqueJugador.push('TIERRA')
             console.log(ataqueJugador)
             boton.style.background = '#112f58'
+            boton.style.cursor = 'no-drop'
+            boton.disabled = true
            }
            ataqueAleatorioOponente()
         })
@@ -303,9 +309,7 @@ function crearMensajeFinal(resultadoFinal){
 
     /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
 
-    botonFuego.disabled = true
-    botonAgua.disabled = true
-    botonTierra.disabled = true
+   
 
     let botonReiniciar = document.getElementById('boton-Reiniciar')
     botonReiniciar.addEventListener('click', reiniciarJuego)
