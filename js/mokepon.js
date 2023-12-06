@@ -32,20 +32,23 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 
 /*Inicio Variables Globales*/
 let mokepones = []
-let ataqueJugador 
-let ataqueOponente
+let ataqueJugador = []
+let ataqueOponente = []
 let opcionMokepones
 let inputHipodoge
 let inputCapipepo
 let inputRatigueya
 let mascotaJugador 
 let ataquesMokepon
+let ataquesMokeponOponente
 let botonFuego
 let botonAgua
 let botonTierra
 let botones = []
-let vidaJugador = 3
-let vidaOponente = 3
+let indexAtaqueJugador
+let indexAtaqueOponente
+let victoriasJugador = 0
+let victoriasOponente = 0
 /*Fin Variables Globales*/
 
 /*Inicio clase*/
@@ -102,7 +105,7 @@ function iniciarJuego(){
             <p>${mokepon.nombre}</p>
             <img src=${mokepon.foto} alt=${mokepon.nombre}>
         </label>`
-
+            //ForEach recorre un arreglo
         contenedorTarjetas.innerHTML += opcionMokepones
 
             inputHipodoge = document.getElementById('Hipodoge')
@@ -127,11 +130,11 @@ function seleccionarMascotaJugador(){
         mascotaJugador = inputHipodoge.id
     }
     else if(inputCapipepo.checked){
-        spanMascotaJugador.innerHTML = inputHipodoge.id
+        spanMascotaJugador.innerHTML = inputCapipepo.id
         mascotaJugador = inputCapipepo.id
     }
     else if(inputRatigueya.checked){
-        spanMascotaJugador.innerHTML = inputHipodoge.id
+        spanMascotaJugador.innerHTML = inputRatigueya.id
         mascotaJugador = inputRatigueya.id
     }
     else{
@@ -140,6 +143,14 @@ function seleccionarMascotaJugador(){
     }
     extraerAtaques(mascotaJugador)
     seleccionarMascotaOponente()
+}
+
+function seleccionarMascotaOponente(){
+    let mascotaAleatorio = aleatorio(0,mokepones.length-1) //calcula el tamaño del arreglo y toma su maximo valor
+    
+    spanMascotaOponente.innerHTML = mokepones[mascotaAleatorio].nombre //imprime de forma aleatoria el nommbre de la mascota sin necesidad de condicionales
+    ataquesMokeponOponente = mokepones[mascotaAleatorio].ataques
+    secuenciaAtaque()
 }
 
 function extraerAtaques(mascotaJugador){
@@ -166,99 +177,122 @@ function mostrarAtaques(ataques){
      botones = document.querySelectorAll('.BAtaque')
 
      console.log(botones)
-
-
-    botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra)
     
 }
 
-function seleccionarMascotaOponente(){
-    let mascotaAleatorio = aleatorio(0,mokepones.length-1) //calcula el tamaño del arreglo y toma su maximo valor
+function secuenciaAtaque(){
+    botones.forEach((boton) =>{
+        boton.addEventListener('click', (e) => {
+           if(e.target.textContent === '🔥'){
+            ataqueJugador.push('FUEGO')
+            console.log(ataqueJugador)
+            boton.style.background = '#112f58'
+           }
+           else if(e.target.textContent === '💧'){
+            ataqueJugador.push('AGUA')
+            console.log(ataqueJugador)
+            boton.style.background = '#112f58'
+           }
+           else{
+            ataqueJugador.push('TIERRA')
+            console.log(ataqueJugador)
+            boton.style.background = '#112f58'
+           }
+           ataqueAleatorioOponente()
+        })
+    })
     
-    spanMascotaOponente.innerHTML = mokepones[mascotaAleatorio].nombre //imprime de forma aleatoria el nommbre de la mascota sin necesidad de condicionales
     
 }
 
-function ataqueFuego(){
-    ataqueJugador = 'FUEGO'
-    ataqueAleatorioOponente()
-}
-function ataqueAgua(){
-    ataqueJugador = 'AGUA'
-    ataqueAleatorioOponente()
-}
-function ataqueTierra(){
-    ataqueJugador = 'TIERRA'
-    ataqueAleatorioOponente()
-}
 
 function ataqueAleatorioOponente(){
-    let ataqueAleatorio = aleatorio(1,3)
+    let ataqueAleatorio = aleatorio(0,ataquesMokeponOponente.length-1)
 
-    if(ataqueAleatorio == 1){
-        ataqueOponente = 'FUEGO'
+    if(ataqueAleatorio == 0 || ataqueAleatorio == 1){
+        ataqueOponente.push('FUEGO')
     }
-    else if(ataqueAleatorio == 2){
-        ataqueOponente = 'AGUA'
+    else if(ataqueAleatorio == 3 || ataqueAleatorio == 4 ){
+        ataqueOponente.push('AGUA')
     }
     else{
-        ataqueOponente = 'TIERRA'
+        ataqueOponente.push('TIERRA')
     }
-    combate()
+    console.log(ataqueOponente)
+    iniciarPelea()
+}
+
+function iniciarPelea(){
+    if(ataqueJugador.length === 5){
+        combate()
+    }
+}
+
+function indexAmbosOponentes(jugador, oponente){
+     indexAtaqueJugador = ataqueJugador[jugador]
+     indexAtaqueOponente = ataqueOponente[oponente]
 }
 
 function combate(){
-    if(ataqueOponente == ataqueJugador){
-        crearMensaje("EMPATE😐🤨")
+
+    for(let index = 0; index < ataqueJugador.length; index++){
+        if(ataqueJugador[index] === ataqueOponente[index]){
+            indexAmbosOponentes(index, index)
+            crearMensaje("EMPATE")
+        }
+        else if(ataqueJugador[index] == 'FUEGO' && ataqueOponente[index] == 'TIERRA'){
+            indexAmbosOponentes(index, index)
+            crearMensaje("GANASTE")
+            victoriasJugador++
+            spanVidaJugador.innerHTML = victoriasJugador
+        }
+        else if(ataqueJugador[index] == 'AGUA' && ataqueOponente[index] == 'FUEGO'){
+            indexAmbosOponentes(index, index)
+            crearMensaje("GANASTE")
+            victoriasJugador++
+            spanVidaJugador.innerHTML = victoriasJugador
+        } 
+        else if(ataqueJugador[index] == 'TIERRA' && ataqueOponente[index] == 'AGUA'){
+            indexAmbosOponentes(index, index)
+            crearMensaje("GANASTE")
+            victoriasJugador++
+            spanVidaJugador.innerHTML = victoriasJugador
+        }
+        else{
+            indexAmbosOponentes(index, index)
+            crearMensaje("PERDISTE")
+            victoriasOponente++
+            spanVidaOponente.innerHTML = victoriasOponente
+        }
+        revisarVictorias()
     }
-    else if(ataqueJugador == 'FUEGO' && ataqueOponente == 'TIERRA'){
-        crearMensaje("GANASTE🎉😀")
-        vidaOponente--
-        spanVidaOponente.innerHTML = vidaOponente
+ 
+}
+
+function revisarVictorias(){
+    if(victoriasJugador == victoriasOponente){
+        crearMensajeFinal("EMPATASTE")
     }
-    else if(ataqueJugador == 'AGUA' && ataqueOponente == 'FUEGO'){
-        crearMensaje("GANASTE🎉😀")
-        vidaOponente--
-        spanVidaOponente.innerHTML = vidaOponente
-    }
-    else if(ataqueJugador == 'TIERRA' && ataqueOponente == 'AGUA'){
-        crearMensaje("GANASTE🎉😀")
-        vidaOponente--
-        spanVidaOponente.innerHTML = vidaOponente
+    else if(victoriasJugador > victoriasOponente){
+        crearMensajeFinal("GANASTE, FELICIDADES!!!")
     }
     else{
-        crearMensaje("PERDISTE😥😭")
-    vidaJugador--
-    spanVidaJugador.innerHTML = vidaJugador
-    }
-    revisarVida()
-    
-}
-
-function revisarVida(){
-    if(vidaOponente == 0){
-        crearMensajeFinal("Felicitaciones Ganaste!")
-    }
-    else if(vidaJugador == 0){
-        crearMensajeFinal("Lo siento te han derrotado :(")
+        crearMensajeFinal("LO SIENTO, PERDISTE")
     }
 }
-
 function crearMensaje(resultado){
     /*Podre declarar variables pero nunca podre declarar mi amor a ella */
     let nuevoAtaqueDelJugador = document.createElement('p')
     let nuevoAtaqueDelOponente = document.createElement('p')
 
     sectionMensaje.innerHTML = resultado
-    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
-    nuevoAtaqueDelOponente.innerHTML = ataqueOponente
+    nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueDelOponente.innerHTML = indexAtaqueOponente
 // let parrafo = document.createElement('p') /* Este método permite crear elementos com por ejemplp <p> en el HTML*/
  // parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota de tu oponente atacó con " + ataqueOponente + " - " + resultado
  /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
     ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
-    ataqueDelOponente.appendChild(nuevoAtaqueDelOponente)
+    ataqueDelOponente.appendChild( nuevoAtaqueDelOponente)
 }
 
 function crearMensajeFinal(resultadoFinal){
@@ -269,11 +303,8 @@ function crearMensajeFinal(resultadoFinal){
 
     /*Si el hijo(Child) es una referencia(hace referencia) hacia un nodo existente en el documento actual, este es quitado del padre actual para ser puesto en el nodo padre nuevo. La clave está en si el (Child) es una referencia a un nodo existente en el documento. */
 
-   
     botonFuego.disabled = true
-    
     botonAgua.disabled = true
-    
     botonTierra.disabled = true
 
     let botonReiniciar = document.getElementById('boton-Reiniciar')
