@@ -108,6 +108,14 @@ hipodoge.ataques.push(
     { nombre: '🌱', id: 'boton-tierra'}
 )
 
+hipodogeEnemigo.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🌱', id: 'boton-tierra'}
+)
+
 capipepo.ataques.push(
     { nombre: '🌱', id: 'boton-tierra'},
     { nombre: '🌱', id: 'boton-tierra'},
@@ -116,7 +124,24 @@ capipepo.ataques.push(
     { nombre: '🔥', id: 'boton-fuego'}
 )
 
+capipepoEnemigo.ataques.push(
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '🌱', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'}
+)
+
+
 ratigueya.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🌱', id: 'boton-tierra'}
+)
+
+ratigueyaEnemigo.ataques.push(
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
@@ -158,8 +183,6 @@ function seleccionarMascotaJugador(){
     sectionSeleccionarMascota.style.display = 'none'    
     // sectionSeleccionarAtaque.style.display = 'flex'
    
-
-   
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id/*innerHTML es una propiedad que permite manipular el DOM */
         mascotaJugador = inputHipodoge.id
@@ -179,14 +202,13 @@ function seleccionarMascotaJugador(){
     extraerAtaques(mascotaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarMascotaOponente()
+    
 }
 
-function seleccionarMascotaOponente(){
-    let mascotaAleatorio = aleatorio(0,mokepones.length-1) //calcula el tamaño del arreglo y toma su maximo valor
+function seleccionarMascotaOponente(enemigo){
     
-    spanMascotaOponente.innerHTML = mokepones[mascotaAleatorio].nombre //imprime de forma aleatoria el nommbre de la mascota sin necesidad de condicionales
-    ataquesMokeponOponente = mokepones[mascotaAleatorio].ataques
+    spanMascotaOponente.innerHTML = enemigo.nombre //imprime de forma aleatoria el nommbre de la mascota sin necesidad de condicionales
+    ataquesMokeponOponente = enemigo.ataques
     secuenciaAtaque()
 }
 
@@ -485,7 +507,10 @@ function revisarColision(enemigo){
     }
 
     detenerMovimiento()
-    alert("Hay colision con " + enemigo.nombre)
+    clearInterval(intervalo)
+    sectionSeleccionarAtaque.style.display = 'flex'
+    sectionVerMapa.style.display = 'none'
+    seleccionarMascotaOponente(enemigo)
 
 }
 
